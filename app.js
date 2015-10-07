@@ -188,6 +188,7 @@ server.register([require('vision'), require("inert")], function (err) {
 	*/
 	server.start(function()
 	{
+		
 		console.log("### SERVER STARTED ###");
 	});
 
