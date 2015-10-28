@@ -1,0 +1,48 @@
+{{#extend "layout-base"}}
+    {{#content "title"}}AppReview - Get Started{{/content}}
+    {{#content "body"}}  
+            <section class="navigation">
+                <header>
+                    <div class="header-content">
+                        <div class="logo">
+                            <a href="/">
+                                <img src="/assets/img/appreview-logo-inverted.png" alt="AppReview logo"></a>
+                        </div>
+                        <div class="header-nav">
+                            <nav>
+                                <ul class="primary-nav">
+                                    <li><a href="/reviewer/dashboard" class="inverted">Apps</a></li>
+                                    <li><a href="/reviewer/apps/completed" class="inverted">Completed Apps</a></li>
+                                    <li><a href="/reviewer/settings" class="inverted">Settings</a></li>
+                                    <li><a href="/?signout=1" class="inverted">Sign Out</a></li>
+                                </ul>
+                                <ul class="member-actions"></ul>
+                            </nav>
+                        </div>
+                        <div class="navicon">
+                            <a class="nav-toggle inverted" href="#"><span></span></a>
+                        </div>
+                    </div>
+                </header>
+            </section>   
+            <section class="section-padding text-center">
+                <div class="container">
+                    <div class="row">
+                        <div id="dashboard" class="col-md-8 col-md-offset-2">
+                                <p>Choose the app you would like to review. New apps will be added regularly. Apps that you successfully review will be removed from the list below, once they are verified.</p>
+                                <div class="apps">
+                                    <a href="/creator/app/12345" class="app" style="background-image: url(http://a3.mzstatic.com/us/r30/Purple69/v4/68/d6/b7/68d6b7d3-78c5-1379-ca98-12f42a1a4857/icon175x175.jpeg)"></a>
+                                    <a href="/creator/app/12345" class="app" style="background-image: url(http://www.edinazephyrus.com/wp-content/uploads/2014/10/Screen-Shot-2014-10-17-at-1.45.11-PM.png)"></a>
+                                    <a href="/creator/app/12345" class="app" style="background-image: url(http://a2.mzstatic.com/us/r30/Purple5/v4/a4/d2/0a/a4d20ae8-12fa-3305-5554-c6084983518c/icon175x175.png)"></a>
+                                    <a href="/creator/app/12345" class="app" style="background-image: url(http://a1.mzstatic.com/us/r30/Purple3/v4/89/04/74/890474a1-6a23-0f2d-8697-0697a14a6faa/icon175x175.png)"></a>
+                                    <a href="/creator/app/12345" class="app" style="background-image: url(http://a5.mzstatic.com/us/r30/Purple6/v4/82/5d/f0/825df061-af16-9808-f5a6-aa5641fcfe10/icon175x175.jpeg)"></a>
+                                    <a href="/creator/app/12345" class="app" style="background-image: url(http://a2.mzstatic.com/us/r30/Purple3/v4/26/1b/7b/261b7bca-919e-085e-4a39-f2209b1111d0/icon175x175.png)"></a>
+                                    <a href="/creator/app/12345" class="app" style="background-image: url(http://a5.mzstatic.com/us/r30/Purple6/v4/e8/c5/7b/e8c57b5b-ff15-e4ee-c264-2ebb99b79d65/icon175x175.png)"></a>
+                                    <a href="/creator/app/12345" class="app" style="background-image: url(http://a4.mzstatic.com/us/r30/Purple6/v4/10/90/87/10908713-631d-11ed-a10b-a8ad3b6d1db9/icon175x175.jpeg)"></a>
+                                </div>    
+                        </div>
+                    </div>
+                </div>
+            </section> 
+    {{/content}}
+{{/extend}}

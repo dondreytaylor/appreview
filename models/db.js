@@ -76,8 +76,8 @@ exports.connection =
 
 		instance.on('error', function(err)
 		{
-			console.log ("MYSQL");
-			console.log( err ); 
+			//console.log ("MYSQL");
+			//console.log( err ); 
 
 			if(err && err.code === 'PROTOCOL_CONNECTION_LOST') 
 			{

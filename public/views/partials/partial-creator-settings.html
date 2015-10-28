@@ -1,0 +1,74 @@
+{{#extend "layout-base"}}
+    {{#content "title"}}AppReview - Settings{{/content}}
+    {{#content "body"}}  
+            <section class="navigation">
+                <header>
+                    <div class="header-content">
+                        <div class="logo">
+                            <a href="/">
+                                <img src="/assets/img/appreview-logo-inverted.png" alt="AppReview logo"></a>
+                        </div>
+                        <div class="header-nav">
+                            <nav>
+                                <ul class="primary-nav">
+                                    <li><a href="/creator/dashboard" class="inverted">My Apps</a></li>
+                                    <li><a href="/creator/buy/reviews" class="inverted">Buy Reviews</a></li>
+                                    <li><a href="/creator/buy/history" class="inverted">Purchase History</a></li>
+                                    <li><a href="/creator/settings" class="inverted">Settings</a></li>
+                                    <li><a href="/?signout=1" class="inverted">Sign Out</a></li>
+                                </ul>
+                                <ul class="member-actions">
+                                </ul>
+                            </nav>
+                        </div>
+                        <div class="navicon">
+                            <a class="nav-toggle inverted" href="#"><span></span></a>
+                        </div>
+                    </div>
+                </header>
+            </section>   
+            <section class="section-padding text-center">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-8 col-md-offset-2"> 
+                            <div class="generic-wrapper">
+                                <div id="settings-form" class="generic-form" role="form">
+                                    <h3>General Settings</h3>
+                                    <div class="form-input-group">
+                                        <i class="fa fa-at"></i><input type="email" class="" placeholder="Email Address" required>
+                                    </div>
+                                    <div class="form-input-group">
+                                        <i class="fa fa-lock"></i><input type="password" class="" placeholder="Change password" required>
+                                    </div>
+                                    <div class="form-input-group">
+                                        <i class="fa fa-lock"></i><input type="password" class="" placeholder="Confirm password" required>
+                                    </div>
+                                    <div class="form-input-group">
+                                        <i class="fa fa-phone"></i><input type="tel" class="" placeholder="Phone Number (Used for sms notifications)" required>
+                                    </div>
+                                    <h3>Notifications</h3>
+                                    <div class="option">
+                                        <label class="radio-inline">
+                                          <input type="radio" name="inlineRadioOptions1" id="inlineRadio1" value="option1"> Notify me of new reviews
+                                        </label>
+                                        <label class="radio-inline">
+                                          <input type="radio" name="inlineRadioOptions1" id="inlineRadio2" value="option2"> Don't notify me of new reviews
+                                        </label>
+                                    </div>
+                                    <div class="option">
+                                        <label class="radio-inline">
+                                          <input type="radio" name="inlineRadioOptions2" id="inlineRadio1" value="option1"> Enable SMS Notifications
+                                        </label>
+                                        <label class="radio-inline">
+                                          <input type="radio" name="inlineRadioOptions2" id="inlineRadio2" value="option2"> Disable SMS Notifications
+                                        </label>
+                                    </div>
+                                    <button type="submit" class="btn-fill sign-up-btn">save settings</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>   
+    {{/content}}
+{{/extend}}

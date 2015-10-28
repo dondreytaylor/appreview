@@ -1,0 +1,48 @@
+{{#extend "layout-base"}}
+    {{#content "title"}}AppReview - Get Started{{/content}}
+    {{#content "body"}}  
+            <section class="navigation">
+                <header>
+                    <div class="header-content">
+                        <div class="logo">
+                            <a href="/">
+                                <img src="/assets/img/appreview-logo-inverted.png" alt="AppReview logo"></a>
+                        </div>
+                        <div class="header-nav">
+                            <nav>
+                                <ul class="primary-nav">
+                                    <li><a href="/creator/dashboard" class="inverted">My Apps</a></li>
+                                    <li><a href="/creator/buy/reviews" class="inverted">Buy Reviews</a></li>
+                                    <li><a href="/creator/buy/history" class="inverted">Purchase History</a></li>
+                                    <li><a href="/creator/settings" class="inverted">Settings</a></li>
+                                    <li><a href="/?signout=1" class="inverted">Sign Out</a></li>
+                                </ul>
+                                <ul class="member-actions">
+                                </ul>
+                            </nav>
+                        </div>
+                        <div class="navicon">
+                            <a class="nav-toggle inverted" href="#"><span></span></a>
+                        </div>
+                    </div>
+                </header>
+            </section>   
+            <section class="section-padding text-center">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-8 col-md-offset-2 generic-wrapper">
+                            <div id="addappform" class="generic-form" role="form">
+                                <h3>Add App</h3>
+                                <p>Provide the App ID associated with the app you would like to add. The App ID can be found within the iTunes URL of the app page. For help with finding the App ID visit our <a href="javascript:void(0);">FAQ</a>.</p>
+                                <div class="form-input-group">
+                                    <i class="fa fa-apple"></i><input id="findappfield" type="email" class="" placeholder="APP ID" required>
+                                </div>
+                                <button id="findappbtn" class="btn-fill sign-up-btn" style='display: none;'>Find App</button>
+                                <div id="appsfound"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section> 
+    {{/content}}
+{{/extend}}

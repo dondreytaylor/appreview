@@ -1,0 +1,85 @@
+{{#extend "layout-base"}}
+    {{#content "title"}}AppReview - Settings{{/content}}
+    {{#content "body"}}  
+            <section class="navigation">
+                <header>
+                    <div class="header-content">
+                        <div class="logo">
+                            <a href="/">
+                                <img src="/assets/img/appreview-logo-inverted.png" alt="AppReview logo"></a>
+                        </div>
+                        <div class="header-nav">
+                            <nav>
+                                <ul class="primary-nav">
+                                    <li><a href="/reviewer/dashboard" class="inverted">Apps</a></li>
+                                    <li><a href="/reviewer/apps/completed" class="inverted">Completed Apps</a></li>
+                                    <li><a href="/reviewer/settings" class="inverted">Settings</a></li>
+                                    <li><a href="/?signout=1" class="inverted">Sign Out</a></li>
+                                </ul>
+                                <ul class="member-actions">
+                                </ul>
+                            </nav>
+                        </div>
+                        <div class="navicon">
+                            <a class="nav-toggle inverted" href="#"><span></span></a>
+                        </div>
+                    </div>
+                </header>
+            </section>  
+            <section class="section-padding text-center">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-8 col-md-offset-2"> 
+                            
+                            <div class="generic-wrapper">
+                                <div id="settings-form" class="generic-form" role="form">
+                                    <h3>General Settings</h3>
+                                    <div class="form-input-group">
+                                        <i class="fa fa-apple"></i><input disabled type="text" value="ddt7" class="" placeholder="Apple ID" required>
+                                    </div>
+                                    <div class="form-input-group">
+                                        <i class="fa fa-at"></i><input type="email" class="" placeholder="Email Address" required>
+                                    </div>
+                                    <div class="form-input-group">
+                                        <i class="fa fa-lock"></i><input type="password" class="" placeholder="Change password" required>
+                                    </div>
+                                    <div class="form-input-group">
+                                        <i class="fa fa-lock"></i><input type="password" class="" placeholder="Confirm password" required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="generic-wrapper">
+                                <div id="settings-form" class="generic-form" role="form">
+                                    <h3>Payment Details</h3>
+                                    <div class="section"> 
+                                        <p>Provide account details to receive payment.</p>
+                                        <div class="generic-wrapper">
+                                            <div class="generic-form" role="form">
+                                                <div class="form-input-group">
+                                                    <i class="fa fa-credit-card"></i><input type="email" class="" placeholder="Credit Card Number (e.g. 1234 5678 9999 0000)" required>
+                                                </div>
+                                                <div class="form-input-group">
+                                                    <i class="fa fa-credit-card"></i><input type="text" class="" placeholder="Security Code (CVC)" required>
+                                                </div>
+
+                                                <div class="form-input-group">
+                                                    <i class="fa fa-calendar"></i><input type="text" class="" placeholder="Expiration Date (DD/MM/YYYY)" required>
+                                                </div>
+                                                <p>
+                                                    <small>AppReview goes through great lengths to ensure that all transactions are secure. For further details on how AppReview ensures privacy visit our <a href="javascrip:void(0);">privacy</a> page.</small>
+                                                </p>
+                                                <button type="submit" class="btn-fill sign-up-btn">save settings</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </section>     
+    {{/content}}
+{{/extend}}

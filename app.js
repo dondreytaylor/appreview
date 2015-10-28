@@ -74,6 +74,53 @@ var HandlebarsLayouts = require('handlebars-layouts');
 HandlebarsLayouts.register(Handlerbars);
 
 
+
+/*
+|--------------------------------------------------------------------------
+|  Request
+|--------------------------------------------------------------------------
+|
+|  HTTP Request Module
+| 
+*/
+var _request = require("request");
+
+
+
+/*
+|--------------------------------------------------------------------------
+|  Hash Generator
+|--------------------------------------------------------------------------
+|
+|  Used to generate hashes
+| 
+*/
+var Hashids = require('hashids')
+var HashGenerator = new Hashids(Credentials.Salt["64"]);
+
+
+/*
+|--------------------------------------------------------------------------
+|  MD5
+|--------------------------------------------------------------------------
+|
+|  MD5 Hashes
+| 
+*/
+var md5 = require('md5');
+
+
+/*
+|--------------------------------------------------------------------------
+|  HAT
+|--------------------------------------------------------------------------
+|
+|  HAT Module
+| 
+*/
+var hat = require('hat');
+
+
 /*
 |--------------------------------------------------------------------------
 |  View
@@ -84,6 +131,286 @@ HandlebarsLayouts.register(Handlerbars);
 */
 server.register([require('vision'), require("inert")], function (err) {
 
+	
+	// APPLE ITUNES API 
+	/* ==================================================== */
+	/* ==================================================== */
+
+	server.route({
+		method: 'GET',
+		path: '/api/apple/app/lookup/{id}',
+		handler: function(request, reply)
+		{
+			var endpoint =  "https://itunes.apple.com/lookup?id=" + request.params.id
+			_request(endpoint, function(err, res, data)
+			{ 
+				if (!err && res.statusCode === 200) { 
+					reply({response: JSON.parse(data)});
+				}
+				else { 
+					reply({response: {
+						resultCount: 0,
+						results: []
+					}});
+				}
+			})
+		}
+	});
+
+
+	// WEB API 
+	/* ==================================================== */
+	/* ==================================================== */
+
+	server.route({
+		method: 'POST',
+		path: '/api/user/onboard',
+		handler: function(request, reply)
+		{ 
+			var checkForUser = function(phone, cb) 
+			{
+				DB.query("SELECT id FROM user WHERE phone = '"+phone+"' ", function(err, results)
+				{
+					if (typeof cb === "function") 
+					{ 
+						if (err || results.length == 0) cb(false)
+						else cb(true)
+					}
+				});
+			}; 
+			
+			var phone   	= request.payload.phone
+			var pass      	= request.payload.pass
+			var email     	= request.payload.email || ""
+			var fullname 	= request.payload.fullname || ""
+			var type 	= request.payload.type || ""
+			type 		= ['reviewer','developer'].indexOf(type.toLowerCase()) > -1 ? type.toLowerCase() : "reviewer" 
+			var user      	=  {
+				type: type,
+				email: email,
+				fullname: fullname,
+				phone: phone,
+				phone_code: HashGenerator.encode(parseInt(phone)),
+				password: md5(pass),
+				created_on: DateHelper.now()
+			};
+
+			checkForUser(phone, function(exists)
+			{
+				if (exists) reply({onboard: false, exists: true});
+				else 
+				{
+					DB.query("INSERT INTO user SET ?", user, function(err, results)
+					{
+						if (err) reply({onboard: false});
+						else reply({onboard: true});
+					});
+				}
+			});
+		},
+		config: { 
+			validate: { 
+				payload: { 
+					phone: Joi.string().required(),
+					pass: Joi.string().required(),
+					email: Joi.string().optional(),
+					fullname: Joi.string().optional(),
+					type: Joi.string().required()
+				}
+			}
+		}
+	});
+
+
+	server.route({
+		method: 'POST',
+		path: '/api/user/onboard/check/phone',
+		handler: function(request, reply)
+		{
+			var checkForUser = function(phone, cb) 
+			{
+				DB.query("SELECT id FROM user WHERE phone = '"+phone+"' ", function(err, results)
+				{
+					if (typeof cb === "function") 
+					{ 
+						if (err || results.length == 0) cb(false)
+						else cb(true)
+					}
+				});
+			}; 
+			
+			var phone 	= request.payload.phone || ""
+			
+			checkForUser(phone, function(exists)
+			{
+				reply({exists: exists});
+			});
+		},
+		config: { 
+			validate: { 
+				payload: { 
+					phone: Joi.string().required()
+				}
+			}
+		}
+	});
+
+
+	server.route({
+		method: 'POST',
+		path: '/api/user/auth',
+		handler: function(request, reply)
+		{
+			var checkForUser = function(phone, pass, cb) 
+			{
+				DB.query("SELECT * FROM user WHERE phone = '"+phone+"' AND password = '"+md5(pass)+"'", function(err, results)
+				{
+					if (typeof cb === "function") 
+					{ 
+						if (err || results.length == 0) cb(false)
+						else cb(true, results[0])
+					}
+				});
+			}; 
+			
+			var token  = (hat.rack())();
+			var phone = request.payload.phone || ""
+			var pass = request.payload.pass || ""
+			var expire_time =  60 * 24 * 365;  // minutes
+			var expires_on = DateHelper.dateAdd("", "minute", expire_time);
+
+			checkForUser(phone, pass, function(exists, user)
+			{
+				if (exists) 
+				{
+					var data = {
+						userid: user.id,
+						token: token,
+						expires_on: expires_on,
+						loggedin_on: DateHelper.now() 
+					};
+
+					DB.query("INSERT INTO user_login ?", data, function(err, results)
+					{
+						if (err) reply({auth: false, error: true});
+						else reply({auth: true, token: token, user: user});
+					})
+				}
+				else reply({auth: false})
+			});
+		},
+		config: { 
+			validate: { 
+				payload: { 
+					phone: Joi.string().required(),
+					pass: Joi.string().required()
+				}
+			}
+		}
+	});
+
+
+	server.route({
+		method: 'POST',
+		path: '/api/user/apps',
+		handler: function(request, reply)
+		{
+			DB.query("SELECT * FROM user_login WHERE token = '"+request.payload.token+"' AND expires_on > NOW() ORDER BY id DESC LIMIT 1", function(err, results)
+			{
+				if (err || results.length == 0) reply({apps:[], auth: false});
+				else 
+				{ 
+					DB.query("SELECT * FROM app WHERE userid = '"+results[0].userid+"' ORDER BY id DESC", function(err, results)
+					{
+						if (err || results.length == 0) reply({apps: [], auth: true});
+						else reply({apps: results, auth: true});
+					});
+				}
+			});
+		},
+		config: { 
+			validate: { 
+				payload: { 
+					token: Joi.string().required(),
+				}
+			}
+		}
+	});
+
+
+	server.route({
+		method: 'POST',
+		path: '/api/user/add/app',
+		handler: function(request, reply)
+		{
+			DB.query("SELECT * FROM user_login WHERE token = '"+request.payload.token+"' AND expires_on > NOW() ORDER BY id DESC LIMIT 1", function(err, results)
+			{
+				if (err || results.length == 0) reply({added: false, auth: false});
+				else 
+				{ 
+					DB.query("INSERT INTO app ?", {
+						appid: request.payload.appid,
+						appname: request.payload.appname,
+						appdata: request.payload.appdata,
+						added_on: DateHelper.now()		
+					}, function(err, results) {
+
+						if (err) reply({added: false});
+						else reply({added: true});
+					})	
+				}
+			});
+		},
+		config: { 
+			validate: { 
+				payload: { 
+					token: Joi.string().required(),
+					appdata: Joi.string().required(),
+					appid: Joi.number().required(),
+					appname: Joi.string().required()
+				}
+			}
+		}
+	});
+
+
+	server.route({
+		method: 'POST',
+		path: '/api/user/update',
+		handler: function(request, reply)
+		{
+			DB.query("SELECT * FROM user_login WHERE token = '"+request.payload.token+"' AND expires_on > NOW() ORDER BY id DESC LIMIT 1", function(err, results)
+			{
+				if (err || results.length == 0) reply({added: false, auth: false});
+				else 
+				{ 
+					if (request.payload.email) { data["email"] = request.payload.email; condition.push("fullname = :fullname"); }
+					if (request.payload.fullname) { data["fullname"] = request.payload.fullname; condition.push("email = :email"); }
+					if (request.payload.pass) { data["password"] = request.payload.pass; condition.push("password = :password"); }
+
+					DB.query("UPDATE user SET "+condition.join(",")+" WHERE id = '"+results[0].userid+"'", data, function(err, results) {
+
+						if (err) reply({added: false});
+						else reply({added: true});
+					})	
+				}
+			});
+		},
+		config: { 
+			validate: { 
+				payload: { 
+					token: Joi.string().required(),
+					email: Joi.string().optional(),
+					fullname: Joi.string().required(),
+					pass: Joi.string().optional()
+				}
+			}
+		}
+	});
+
+	// WEBSITES
+	/* ==================================================== */
+	/* ==================================================== */
 
 	/*
 	|--------------------------------------------------------------------------
@@ -117,7 +444,7 @@ server.register([require('vision'), require("inert")], function (err) {
 	{
 		if (request.response.isBoom) 
 		{
-			return reply.redirect('/');
+			//return reply.redirect('/');
 		}
 
 		return reply.continue();
@@ -139,10 +466,10 @@ server.register([require('vision'), require("inert")], function (err) {
 
 	/*
 	|--------------------------------------------------------------------------
-	| WEB Route: Base
+	| WEB Route:
 	|--------------------------------------------------------------------------
 	|
-	|  Landing page
+	|  All routes pertaining to web pages
 	| 
 	*/
 	server.route({
@@ -154,6 +481,142 @@ server.register([require('vision'), require("inert")], function (err) {
 		}
 	});
 
+	server.route({
+		method: 'GET',
+		path: '/reviewer/dashboard',
+		handler: function(request, reply)
+		{
+			reply.view('page-reviewer-dashboard', {});
+		}
+	});
+
+	server.route({
+		method: 'GET',
+		path: '/creator/add/app',
+		handler: function(request, reply)
+		{
+			reply.view('page-creator-addapp', {});
+		}
+	});
+
+	server.route({
+		method: 'GET',
+		path: '/creator/dashboard',
+		handler: function(request, reply)
+		{
+			reply.view('page-creator-dashboard', {});
+		}
+	});
+
+	server.route({
+		method: 'GET',
+		path: '/creator/buy/reviews',
+		handler: function(request, reply)
+		{
+			reply.view('page-creator-purchase', {});
+		}
+	});
+
+	server.route({
+		method: 'GET',
+		path: '/creator/app/{id}',
+		handler: function(request, reply)
+		{
+			reply.view('page-creator-app', {});
+		}
+	});
+
+	server.route({
+		method: 'GET',
+		path: '/reviewer/app/{id}',
+		handler: function(request, reply)
+		{
+			reply.view('page-reviewer-app', {});
+		}
+	});
+
+	server.route({
+		method: 'GET',
+		path: '/creator/buy/history',
+		handler: function(request, reply)
+		{
+			reply.view('page-creator-purchasehistory', {});
+		}
+	});
+
+	server.route({
+		method: 'GET',
+		path: '/reviewer/start/review/{id}',
+		handler: function(request, reply)
+		{
+			reply.view('page-reviewer-startreview', {});
+		}
+	});
+
+
+	server.route({
+		method: 'GET',
+		path: '/reviewer/apps/completed',
+		handler: function(request, reply)
+		{
+			reply.view('page-reviewer-appscompleted', {});
+		}
+	});
+
+	server.route({
+		method: 'GET',
+		path: '/creator/settings',
+		handler: function(request, reply)
+		{
+			reply.view('page-creator-settings', {});
+		}
+	});
+
+
+	server.route({
+		method: 'GET',
+		path: '/reviewer/settings',
+		handler: function(request, reply)
+		{
+			reply.view('page-reviewer-settings', {});
+		}
+	});
+
+	server.route({
+		method: 'GET',
+		path: '/onboard/reviewer',
+		handler: function(request, reply)
+		{
+			reply.view('page-reviewer-onboard', {});
+		}
+	});
+
+	server.route({
+		method: 'GET',
+		path: '/onboard/creator',
+		handler: function(request, reply)
+		{
+			reply.view('page-creator-onboard', {});
+		}
+	});
+
+	server.route({
+		method: 'GET',
+		path: '/login',
+		handler: function(request, reply)
+		{
+			reply.view('page-login', {});
+		}
+	});
+
+	server.route({
+		method: 'GET',
+		path: '/getstarted',
+		handler: function(request, reply)
+		{
+			reply.view('page-chooseuser', {});
+		}
+	});
 
 	/*
 	|--------------------------------------------------------------------------
@@ -188,7 +651,7 @@ server.register([require('vision'), require("inert")], function (err) {
 	*/
 	server.start(function()
 	{
-		
+
 		console.log("### SERVER STARTED ###");
 	});
 

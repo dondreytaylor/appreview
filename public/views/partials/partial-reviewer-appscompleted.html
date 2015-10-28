@@ -1,0 +1,42 @@
+{{#extend "layout-base"}}
+    {{#content "title"}}AppReview - Get Started{{/content}}
+    {{#content "body"}}  
+            <section class="navigation">
+                <header>
+                    <div class="header-content">
+                        <div class="logo">
+                            <a href="/">
+                                <img src="/assets/img/appreview-logo-inverted.png" alt="AppReview logo"></a>
+                        </div>
+                        <div class="header-nav">
+                            <nav>
+                                <ul class="primary-nav">
+                                    <li><a href="/reviewer/dashboard" class="inverted">Apps</a></li>
+                                    <li><a href="/reviewer/apps/completed" class="inverted">Completed Apps</a></li>
+                                    <li><a href="/reviewer/settings" class="inverted">Settings</a></li>
+                                    <li><a href="/?signout=1" class="inverted">Sign Out</a></li>
+                                </ul>
+                                <ul class="member-actions"></ul>
+                            </nav>
+                        </div>
+                        <div class="navicon">
+                            <a class="nav-toggle inverted" href="#"><span></span></a>
+                        </div>
+                    </div>
+                </header>
+            </section>   
+            <section class="section-padding text-center">
+                <div class="container">
+                    <div class="row">
+                        <div id="dashboard" class="col-md-8 col-md-offset-2">
+                                <p>Apps that you review which have been verified will appear here.</p>
+                                <div class="apps">
+                                    <a href="/creator/app/12345" class="app" style="background-image: url(http://a3.mzstatic.com/us/r30/Purple69/v4/68/d6/b7/68d6b7d3-78c5-1379-ca98-12f42a1a4857/icon175x175.jpeg)"></a>
+                                    <a href="/creator/app/12345" class="app" style="background-image: url(http://www.edinazephyrus.com/wp-content/uploads/2014/10/Screen-Shot-2014-10-17-at-1.45.11-PM.png)"></a>
+                                </div>    
+                        </div>
+                    </div>
+                </div>
+            </section> 
+    {{/content}}
+{{/extend}}

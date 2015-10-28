@@ -23,14 +23,14 @@ var  Credentials =  {
 			Port            		: "3306",
 			User            		: "root",
 			Password        		: "mGOT9Nop",
-			Database        		: "minichat",
+			Database        		: "appreview",
 			
 
 			Dev_Host             	: "104.197.107.186",
 			Dev_Port             	: "3306",
 			Dev_User            	: "root",
 			Dev_Password        	: "mGOT9Nop",
-			Dev_Database        	: "minichat_development",
+			Dev_Database        	: "appreview",
 
 
 			// Host 		:  "50.79.103.170",

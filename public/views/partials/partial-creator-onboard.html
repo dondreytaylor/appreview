@@ -1,0 +1,49 @@
+{{#extend "layout-base"}}
+    {{#content "title"}}AppReview - Get Started{{/content}}
+    {{#content "body"}}  
+            <section class="navigation">
+                <header>
+                    <div class="header-content">
+                        <div class="logo">
+                            <a href="/">
+                                <img src="/assets/img/appreview-logo-inverted.png" alt="AppReview logo"></a>
+                        </div>
+                        <div class="header-nav">
+                            <nav>
+                                <ul class="primary-nav">
+                                </ul>
+                                <ul class="member-actions">
+                                    <li><a href="/login" class="login inverted">Log in</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                        <div class="navicon">
+                            <a class="nav-toggle inverted" href="#"><span></span></a>
+                        </div>
+                    </div>
+                </header>
+            </section>   
+            <section class="sign-up section-padding text-center" id="download">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6 col-md-offset-3">
+                            <h3>Become an App Creator</h3>
+                            <p>Provide the following information about yourself so we can create your account.</p>
+                            <form class="signup-form" action="#" method="POST" role="form">
+                                <div class="form-input-group">
+                                    <i class="fa fa-at"></i><input type="email" class="" placeholder="Enter your email" required>
+                                </div>
+                                <div class="form-input-group">
+                                    <i class="fa fa-lock"></i><input type="password" class="" placeholder="Create a password" required>
+                                </div>
+                                <div class="form-input-group">
+                                    <i class="fa fa-lock"></i><input type="password" class="" placeholder="Confirm password" required>
+                                </div>
+                                <button type="submit" class="btn-fill sign-up-btn">Start Reviewing</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>   
+    {{/content}}
+{{/extend}}

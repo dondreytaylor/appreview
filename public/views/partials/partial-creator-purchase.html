@@ -1,0 +1,87 @@
+{{#extend "layout-base"}}
+    {{#content "title"}}AppReview - Settings{{/content}}
+    {{#content "body"}}  
+            <section class="navigation">
+                <header>
+                    <div class="header-content">
+                        <div class="logo">
+                            <a href="/">
+                                <img src="/assets/img/appreview-logo-inverted.png" alt="AppReview logo"></a>
+                        </div>
+                        <div class="header-nav">
+                            <nav>
+                                <ul class="primary-nav">
+                                    <li><a href="/creator/dashboard" class="inverted">My Apps</a></li>
+                                    <li><a href="/creator/buy/reviews" class="inverted">Buy Reviews</a></li>
+                                    <li><a href="/creator/buy/history" class="inverted">Purchase History</a></li>
+                                    <li><a href="/creator/settings" class="inverted">Settings</a></li>
+                                    <li><a href="/?signout=1" class="inverted">Sign Out</a></li>
+                                </ul>
+                                <ul class="member-actions">
+                                </ul>
+                            </nav>
+                        </div>
+                        <div class="navicon">
+                            <a class="nav-toggle inverted" href="#"><span></span></a>
+                        </div>
+                    </div>
+                </header>
+            </section>   
+            <section class="section-padding text-center">
+                <div class="container">
+                    <div class="row">
+                        <div id="purchasereviews" class="col-md-8 col-md-offset-2">  
+                            <h3>Purchase Reviews</h3>
+                            <p>Choose the amount of reviews you would like to purchase</p>
+                            <div class="packages">
+                                    <div class="package">
+                                            <span>$30</span>
+                                            <small>10 reviews</small>
+                                    </div>
+                                    <div class="package">
+                                            <span>$50</span>
+                                            <small>20 reviews</small>
+                                    </div>
+                                    <div class="package">
+                                            <span>$100</span>
+                                            <small>50 reviews</small>
+                                    </div>
+                            </div> 
+                            <div class="section">
+                                <p>Choose the app you would like to apply these reviews to. If these reviews should not be tied to a particular app choose <strong>All Apps</strong>. For further details visit our <a href="javascript:void(0);">FAQ</a>.</p>
+                                <div class="select-style">
+                                    <select class="form-input">
+                                        <option>All Apps</option>
+                                        <option>SnapChat</option>
+                                        <option>Yik Yak</option>
+                                        <option>Twitter</option>
+                                    </select>
+                                </div>  
+                            </div>
+                            <div class="section"> 
+                                <p>Provide the payment details you would like to use for purchasing these reviews.</p>
+                                <div class="generic-wrapper">
+                                    <div class="generic-form" role="form">
+                                        <div class="form-input-group">
+                                            <i class="fa fa-credit-card"></i><input type="email" class="" placeholder="Credit Card Number (e.g. 1234 5678 9999 0000)" required>
+                                        </div>
+                                        <div class="form-input-group">
+                                            <i class="fa fa-credit-card"></i><input type="text" class="" placeholder="Security Code (CVC)" required>
+                                        </div>
+
+                                        <div class="form-input-group">
+                                            <i class="fa fa-calendar"></i><input type="text" class="" placeholder="Expiration Date (DD/MM/YYYY)" required>
+                                        </div>
+                                        <p>
+                                            <small>AppReview goes through great lengths to ensure that all transactions are secure. For further details on how AppReview ensures privacy visit our <a href="javascrip:void(0);">privacy</a> page.</small>
+                                        </p>
+                                        <button type="submit" class="btn-fill sign-up-btn">buy reviews</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>   
+    {{/content}}
+{{/extend}}

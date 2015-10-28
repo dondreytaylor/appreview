@@ -1,0 +1,75 @@
+{{#extend "layout-base"}}
+    {{#content "title"}}AppReview - Settings{{/content}}
+    {{#content "body"}}  
+            <section class="navigation">
+                <header>
+                    <div class="header-content">
+                        <div class="logo">
+                            <a href="/">
+                                <img src="/assets/img/appreview-logo-inverted.png" alt="AppReview logo"></a>
+                        </div>
+                        <div class="header-nav">
+                            <nav>
+                                <ul class="primary-nav">
+                                    <li><a href="/creator/dashboard" class="inverted">My Apps</a></li>
+                                    <li><a href="/creator/buy/reviews" class="inverted">Buy Reviews</a></li>
+                                    <li><a href="/creator/buy/history" class="inverted">Purchase History</a></li>
+                                    <li><a href="/creator/settings" class="inverted">Settings</a></li>
+                                    <li><a href="/?signout=1" class="inverted">Sign Out</a></li>
+                                </ul>
+                                <ul class="member-actions">
+                                </ul>
+                            </nav>
+                        </div>
+                        <div class="navicon">
+                            <a class="nav-toggle inverted" href="#"><span></span></a>
+                        </div>
+                    </div>
+                </header>
+            </section>   
+            <section class="section-padding text-center">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-8 col-md-offset-2">
+                            <h3>Purchase History</h3>
+                            <p>Below is an overview of your review purchase history.</p>
+                            <table id="purchasehistory" class="table">
+                                  <thead>
+                                    <tr>
+                                      <th>ID</th>
+                                      <th>Reviews</th>
+                                      <th>Amount</th>
+                                      <th>App</th>
+                                      <th>Date</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    <tr>
+                                      <td>12345</td>
+                                      <td>10</td>
+                                      <td>$20</td>
+                                      <td>Yik Yak</td>
+                                      <td>10/01/2015</td>
+                                    </tr>
+                                    <tr>
+                                      <td>12345</td>
+                                      <td>10</td>
+                                      <td>$20</td>
+                                      <td>SnapChat</td>
+                                      <td>10/01/2015</td>
+                                    </tr>
+                                    <tr>
+                                      <td>12345</td>
+                                      <td>10</td>
+                                      <td>$20</td>
+                                      <td>Twitter</td>
+                                      <td>10/01/2015</td>
+                                    </tr>
+                                  </tbody>
+                                </table>   
+                        </div>
+                    </div>
+                </div>
+            </section>   
+    {{/content}}
+{{/extend}}

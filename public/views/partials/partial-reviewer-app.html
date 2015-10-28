@@ -1,0 +1,94 @@
+{{#extend "layout-base"}}
+    {{#content "title"}}AppReview - Get Started{{/content}}
+    {{#content "body"}}  
+            <section class="navigation">
+                <header>
+                    <div class="header-content">
+                        <div class="logo">
+                            <a href="/">
+                                <img src="/assets/img/appreview-logo-inverted.png" alt="AppReview logo"></a>
+                        </div>
+                        <div class="header-nav">
+                            <nav>
+                                <ul class="primary-nav">
+                                    <li><a href="/reviewer/dashboard" class="inverted">Apps</a></li>
+                                    <li><a href="/reviewer/apps/completed" class="inverted">Completed Apps</a></li>
+                                    <li><a href="/reviewer/settings" class="inverted">Settings</a></li>
+                                    <li><a href="/?signout=1" class="inverted">Sign Out</a></li>
+                                </ul>
+                                <ul class="member-actions">
+                                </ul>
+                            </nav>
+                        </div>
+                        <div class="navicon">
+                            <a class="nav-toggle inverted" href="#"><span></span></a>
+                        </div>
+                    </div>
+                </header>
+            </section>   
+            <section class="section-padding text-center">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-8 col-md-offset-2 generic-wrapper">
+                                <div id="app">
+                                        <div class="section" id="appdetails">
+                                                   <div class="appicon" style="background-image:url(http://a2.mzstatic.com/us/r30/Purple3/v4/aa/11/f9/aa11f9f3-b832-ff07-7731-966544287aa7/icon175x175.png)"></div>
+                                                    <h2 id="appname">SnapChat</h2>
+                                                    <span>by <strong id="appauthor">SnapChat, Inc.</strong></span>
+                                                    <span>Bundle ID: <strong>com.toyopagroup.picaboo</strong></span>
+                                        </div>
+                                        <div class="section">
+                                            <a href="/reviewer/start/review/1234" class="review-btn btn-fill btn-block">Begin Reviewing App</a>
+                                        </div>
+                                        <div class="section">
+                                            <span>Price: <strong>Free</strong></span> | 
+                                            <span>Average Rating: <strong>2.5 / 5</strong></span> | 
+                                            <span>Version: <strong id="appversion">9.16.10</strong> @ <strong>64.5MB</strong></span>
+                                        </div>
+                                        <div class="section">
+                                            <h3>Snapchat, Inc</h3>
+                                            <a target="_blank" href="http://www.snapchat.com">http://www.snapchat.com</a>
+                                        </div>
+                                        <div class="section">
+                                            <h3>App Store URL</h3>
+                                            <a target="_blank" href="https://itunes.apple.com/us/app/snapchat/id447188370?mt=8&uo=4">https://itunes.apple.com/us/app/snapchat/id447188370?mt=8&uo=4</a>
+                                        </div>
+                                        <div class="section">
+                                            <h3>Screen Shots</h3>
+                                            <div id="appscreenshots">
+                                                <img src="http://a1.mzstatic.com/us/r30/Purple5/v4/15/b8/68/15b868cc-ac3a-ea5f-4ef9-004509a5fe35/screen1136x1136.jpeg">
+                                                <img src="http://a1.mzstatic.com/us/r30/Purple1/v4/79/01/4d/79014d7e-0a0e-b403-76e8-0b6a8eeb60a8/screen1136x1136.jpeg">
+                                                <img src="http://a4.mzstatic.com/us/r30/Purple3/v4/45/7f/30/457f30c4-8793-80f0-61dc-169dc2385add/screen1136x1136.jpeg">
+                                            </div>
+                                        </div>
+                                        <div class="section">
+                                                <h3>Categories</h3>
+                                                <p id="appcategories">Photo &amp; Video, Social Networking</p>
+                                        </div>
+                                        <div class="section">
+                                                <h3>Advisories</h3>
+                                                <div id="appadvisories">Infrequent/Mild Sexual Content and Nudity, Infrequent/Mild Mature/Suggestive Themes, Infrequent/Mild Profanity or Crude Humor, Infrequent/Mild Alcohol, Tobacco, or Drug Use or References</div>
+                                        </div>
+                                        <div class="section">
+                                                <h3>Description</h3>
+                                                <p id="appdescription">Enjoy fast and fun mobile conversation! Snap a photo or a video, add a caption, and send it to a friend. They’ll view it, laugh, and then the Snap disappears from the screen – unless they take a screenshot! </p>
+                                        </div>
+                                        <div class="section"> 
+                                                <h3>Reviews</h3>
+                                                <p>App review states collected since app has been imported. To add more reviews to this app, you will need to visit the <a href="javascript:void(0);">buy reviews</a> section.</p>
+                                                <div id="reviewscompleted">
+                                                    <span>0</span>
+                                                    <small>completed</small>
+                                                </div>
+                                                <div id="reviewsremaining">
+                                                    <span>10</span>
+                                                    <small>remaining</small>
+                                                </div>
+                                        </div>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </section> 
+    {{/content}}
+{{/extend}}
