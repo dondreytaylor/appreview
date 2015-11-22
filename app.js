@@ -6,6 +6,7 @@
 |  Include models in one object for easier management 
 | 
 */
+var Constants     =  require('./models/constants.js');  
 var Credentials     =  require('./models/credentials.js');  
 var DateHelper     =  require('./models/datehelper.js');  
 var DB  	     =  require('./models/db.js').connection;
@@ -572,7 +573,6 @@ server.register([require('vision'), require("inert")], function (err) {
 		}
 	});
 
-
 	server.route({
 		method: 'GET',
 		path: '/reviewer/settings',
@@ -617,6 +617,84 @@ server.register([require('vision'), require("inert")], function (err) {
 			reply.view('page-chooseuser', {});
 		}
 	});
+
+
+	/*
+	|--------------------------------------------------------------------------
+	| API Route: Checkout
+	|--------------------------------------------------------------------------
+	|
+	| Checkout Routes
+	|
+	*/
+	server.route({
+		method: 'GET',
+		path: '/purchase/{itemCode}',
+		handler: function(request, reply)
+		{
+			var itemPrice   = 0
+			var itemCode   = request.params.itemCode
+			var itemName  = ""
+			var itemCurrency = "USD";
+
+			var token  = (hat.rack())();
+			var PEC = require('paypal-express-checkout');
+			var PayPal = PEC.init(
+			    	Credentials.Service.PayPal.username, 
+			    	Credentials.Service.PayPal.password, 
+			    	Credentials.Service.PayPal.signature, 
+			    	Credentials.Service.PayPal.returnurl + "?item=reviews", 
+			    	Credentials.Service.PayPal.cancelurl + "?item=reviews", [true]
+			);
+			
+			for (var index in Constants.purchaseItems) 
+			{ 
+				if (Constants.purchaseItems[index].code == itemCode) 
+				{
+					itemPrice = Constants.purchaseItems[index].price
+					itemCode = Constants.purchaseItems[index].code
+					itemName = Constants.purchaseItems[index].name
+					itemCurrency = Constants.purchaseItems[index].currency 
+				} 
+			}
+
+			// Proceed to checkout if we found the corresponding item 
+			// using the code specified
+			if (itemName != "")
+			{ 
+				PayPal.pay(token, itemPrice, itemName, itemCurrency, false, function(err, url) 
+				{
+			    		if (err) console.log(err);
+			    		reply.redirect(url);
+				});
+			}
+			// If the code doesn't match and item we'll send them
+			// to the landing page
+			else 
+			{ 
+				reply.redirect("/");
+			}
+		}
+	});
+
+	server.route({
+		method: 'GET',
+		path: '/purchase/finished',
+		handler: function(request, reply)
+		{
+			reply.view('page-creator-purchase-succeeded', {});
+		}
+	});
+
+	server.route({
+		method: 'GET',
+		path: '/purchase/cancelled',
+		handler: function(request, reply)
+		{
+			reply.view('page-creator-purchase-failed', {});
+		}
+	});
+
 
 	/*
 	|--------------------------------------------------------------------------

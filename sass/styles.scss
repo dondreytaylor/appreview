@@ -1678,6 +1678,34 @@ App Add
 
 }
 
+/* ==========================================================================
+  Purchase 
+========================================================================== */
+
+#purchase-message { 
+    display: block;
+    text-align: center;
+
+    i { 
+      font-size: 12rem;
+      color: $accent-color;
+    }
+
+    a { 
+      color: $accent-color;
+      display: inline-block;
+      margin: 0.5rem 2rem;
+    }
+
+}
+
+
+
+
+
+
+
+
 
 
 

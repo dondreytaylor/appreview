@@ -1,0 +1,43 @@
+{{#extend "layout-base"}}
+    {{#content "title"}}AppReview - Purchase{{/content}}
+    {{#content "body"}}  
+            <section class="navigation">
+                <header>
+                    <div class="header-content">
+                        <div class="logo">
+                            <a href="/">
+                                <img src="/assets/img/appreview-logo-inverted.png" alt="AppReview logo"></a>
+                        </div>
+                        <div class="header-nav">
+                            <nav>
+                                <ul class="primary-nav">
+                                </ul>
+                                <ul class="member-actions">
+                                </ul>
+                            </nav>
+                        </div>
+                        <div class="navicon">
+                            <a class="nav-toggle inverted" href="#"><span></span></a>
+                        </div>
+                    </div>
+                </header>
+            </section>   
+            <section class="section-padding text-center">
+                <div class="container">
+                    <div class="row">
+                            <div id="purchase-message">
+                                    <div>
+                                        <i class="fa fa-check-circle"></i>
+                                    </div>
+                                    <h1>Success</h1>
+                                    <p>Payment was successfull. Your account has ben updated to reflect this purchase.</p>
+                                    <div>
+                                        <a href="/creator/buy/history">Go to <strong>Purchase History</strong></a>
+                                        <a href="/creator/dashboard">Go to <strong>Dashboard</strong></a>
+                                    </div>
+                            </div>
+                    </div>
+                </div>
+            </section>   
+    {{/content}}
+{{/extend}}

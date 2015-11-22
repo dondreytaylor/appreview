@@ -1520,3 +1520,17 @@ App Add
   margin-bottom: 1rem;
   display: block;
   text-align: center; }
+
+/* ==========================================================================
+  Purchase 
+========================================================================== */
+#purchase-message {
+  display: block;
+  text-align: center; }
+  #purchase-message i {
+    font-size: 12rem;
+    color: #ff5274; }
+  #purchase-message a {
+    color: #ff5274;
+    display: inline-block;
+    margin: 0.5rem 2rem; }
